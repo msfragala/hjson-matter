@@ -1,0 +1,12 @@
+{
+  "name": "hjson-matter",
+  "version": "1.0.0",
+  "description": "Front-matter parser for HJSON.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["hjson","json","front-matter"],
+  "author": "Mitchell Gates <ms.fragala@gmail.com>",
+  "license": "MIT"
+}
