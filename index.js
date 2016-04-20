@@ -6,15 +6,20 @@ module.exports = function(content, delimiter) {
   delimiter = delimiter || '---';
 
   var lines = getLines(content);
-  var inceptor = getInceptor(content, delimiter);
-  var terminus = getTerminus(content, delimiter, inceptor);
-  var frontMatter = getFrontMatter(content, inceptor, terminus);
-  var fileContent = getFileContent(content, inceptor, terminus);
+  var inceptor, terminus, frontMatter, fileContent;
 
-  return {
-    body: fileContent,
-    data: HJSON.parse(frontMatter),
-    original: content
+  if (lines[0] && isDelimiter(lines[0])) {
+    inceptor = getInceptor(content, delimiter);
+    terminus = getTerminus(content, delimiter, inceptor);
+    frontMatter = getFrontMatter(content, inceptor, terminus);
+    fileContent = getFileContent(content, inceptor, terminus);
+    return {
+      body: fileContent,
+      data: HJSON.parse(frontMatter),
+      original: content
+    }
+  } else {
+    return content;
   }
 
 }
@@ -24,7 +29,7 @@ function getLines(string) {
 }
 
 function isDelimiter(line, delimiter) {
-  return delimiter.test(line);
+  return new Regex('^' + delimiter + '$').test(line);
 }
 
 function removeBOM(string) {
